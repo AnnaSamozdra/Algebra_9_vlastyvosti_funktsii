@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MATH QUEST 09 — Властивості функції</title>
+<style>
+:root{--bg:#090e21;--panel:#151e3b;--panel2:#1d2a50;--line:#3b4b7a;--cyan:#54e6ff;--pink:#ff69bd;--gold:#ffd66b;--green:#68e5ad;--ink:#f6f8ff;--muted:#bfcae6;--violet:#a58bff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 12% 0%,#263a72 0,transparent 28%),radial-gradient(circle at 95% 20%,#46205f 0,transparent 30%),var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+header{padding:20px clamp(16px,4vw,56px) 15px;background:#080d1deF;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}.brand{color:var(--cyan);font-weight:900;letter-spacing:3px;font-size:12px}h1{font-size:clamp(25px,4vw,42px);line-height:1.1;margin:5px 0 0}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.nav button,.btn{border:1px solid #56699c;background:#202d52;color:var(--ink);border-radius:12px;padding:10px 15px;font-weight:700;cursor:pointer}.nav button.active{background:linear-gradient(90deg,#16b8d8,#8871ff);color:#06152c;border-color:transparent}
+.progress{height:7px;background:#263252;border-radius:30px;margin-top:13px;overflow:hidden}.progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:.3s}
+main{max-width:1180px;margin:auto;padding:25px 18px 70px}.page{display:none}.page.active{display:block;animation:fade .25s}@keyframes fade{from{opacity:.5;transform:translateY(5px)}to{opacity:1;transform:none}}
+.hero,.card{background:linear-gradient(145deg,#1a2547,#111a35);border:1px solid var(--line);border-radius:22px;padding:22px;margin-bottom:18px;box-shadow:0 12px 35px #0003}
+.hero{display:grid;grid-template-columns:1.5fr .7fr;align-items:center;gap:18px}.eyebrow{color:var(--gold);font-size:12px;font-weight:900;letter-spacing:1.4px}.hero h2{font-size:clamp(26px,4vw,40px);margin:8px 0}.hero p,.muted{color:var(--muted)}.hero-art{text-align:center;font-size:78px;filter:drop-shadow(0 0 18px #54e6ff77)}
+h2{font-size:25px;margin:0 0 12px}h3{font-size:18px;margin:0 0 9px;color:#f4f7ff}.section-title{display:flex;align-items:center;gap:10px;margin:23px 0 12px}.section-title .num{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#14bad9,#8068ea);color:#08152b;font-weight:900}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:13px}.two{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.tile{background:#202c50;border:1px solid #485b8d;border-radius:17px;padding:16px}.tile p{margin:6px 0;color:var(--muted)}.formula{font-size:20px;font-weight:800;color:#fff;letter-spacing:.2px}.tag{display:inline-block;padding:3px 9px;border-radius:99px;background:#26385f;color:var(--cyan);font-size:12px;font-weight:800}
+.frac{display:inline-flex;vertical-align:middle;flex-direction:column;text-align:center;font-size:.85em;line-height:1.05;margin:0 3px}.frac span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px 2px}.frac span:last-child{padding:2px 4px 0}
+.callout{border-left:4px solid var(--cyan);padding:10px 14px;background:#192746;border-radius:0 12px 12px 0;color:var(--muted);margin:12px 0}
+.example{background:#101a35;border:1px dashed #6278b2;border-radius:16px;padding:15px;margin-top:12px}.answer{display:none;margin-top:10px;background:#0e332f;border:1px solid #347a69;border-radius:12px;padding:12px;color:#d8ffef}.answer.show{display:block}
+button{font:inherit}.btn.primary{background:linear-gradient(90deg,#20c7e2,#8976ff);color:#07142b;border:0}.btn:hover,.nav button:hover{filter:brightness(1.13)}.btn.small{padding:8px 12px;font-size:13px}.btnline{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0}th,td{border:1px solid #53638d;padding:9px;text-align:left}th{background:#26375f;color:#fff}td{background:#172342;color:#e9efff}
+.plot{width:100%;max-width:520px;background:#f8fbff;border-radius:14px;display:block;margin:12px auto;padding:5px}.plot svg{width:100%;height:auto;display:block}
+.quiz{background:#111b37;border:1px solid #40527f;border-radius:16px;padding:16px;margin:12px 0}.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-top:11px}.option{background:#28375f;border:1px solid #53689c;color:#fff;border-radius:11px;text-align:left;padding:11px 13px;cursor:pointer}.option.correct{background:#14543f;border-color:#4bd69b}.option.wrong{background:#642c49;border-color:#ff74ac}.option:disabled{cursor:default;opacity:.93}.feedback{min-height:22px;margin-top:9px;color:var(--gold);font-weight:700;font-size:14px}
+details{border:1px solid #435682;border-radius:13px;padding:12px 14px;background:#172342;margin:10px 0}summary{cursor:pointer;font-weight:800;color:#dce7ff}details p{color:var(--muted);margin-bottom:0}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.video{background:#172342;border:1px solid #40527f;border-radius:16px;padding:12px}.video iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#000}.video a,.resource a{color:var(--cyan)}
+.resource{background:#192545;border:1px solid #4a5e92;border-radius:16px;padding:17px}.resource p{color:var(--muted)}
+.checklist{list-style:none;padding:0;margin:8px 0}.checklist li{margin:8px 0}.checklist input{accent-color:#59d8ed;transform:scale(1.15);margin-right:9px}
+.mini-graph{background:#f8fbff;border-radius:13px;overflow:hidden}.mini-graph svg{display:block;width:100%;height:auto}
+footer{text-align:center;color:#8291b9;font-size:12px;padding:20px}
+@media(max-width:700px){header{position:relative}.hero{grid-template-columns:1fr}.hero-art{font-size:55px}.two{grid-template-columns:1fr}.nav button{flex:1}.card,.hero{padding:16px}}
+
+/* Clear mathematical fractions */
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;align-items:stretch;
+ text-align:center;line-height:1.02;font-size:.9em;margin:0 .14em;white-space:nowrap;color:inherit}
+.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .22em .10em}
+.frac>span:last-child{padding:.10em .22em 0}
+/* Important ideas are always highlighted in warm yellow */
+.callout{border-left:5px solid #f0bd38!important;background:linear-gradient(90deg,#fff3c4,#ffedaa)!important;
+ color:#283248!important;box-shadow:0 5px 16px #0002}
+.formula{display:inline-block;background:#ffe9a3;color:#1d2940!important;border-radius:10px;
+ padding:5px 12px;margin:4px 0;box-shadow:inset 0 0 0 1px #f3d16f}
+.key-highlight{background:#fff0b5!important;color:#24304a!important;border-radius:10px;padding:2px 6px;
+ box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.important-box{background:#fff1bd;color:#26314a;border:1px solid #f1d06d;border-left:5px solid #e4b42f;
+ border-radius:12px;padding:12px 15px;margin:12px 0;font-weight:700}
+.section-title h2{position:relative}
+.section-title h2:after{content:"";display:block;height:5px;width:clamp(55px,22%,150px);border-radius:8px;
+ background:linear-gradient(90deg,#ffd96b,#ffeeb9);margin-top:3px}
+.tile{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.tile:hover{transform:translateY(-3px);box-shadow:0 12px 28px #0003;border-color:#8296ca}
+.btn,.nav button,.option{transition:transform .18s ease,filter .18s ease,box-shadow .18s ease}
+.btn:hover,.nav button:hover{transform:translateY(-2px);box-shadow:0 6px 16px #0004}
+.option:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.13)}
+.page.active{animation:pageEnter .45s ease both}
+.hero-art{animation:floatQuest 4s ease-in-out infinite}
+.brand{animation:glowQuest 3.2s ease-in-out infinite alternate}
+@keyframes pageEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes floatQuest{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+@keyframes glowQuest{from{text-shadow:0 0 4px #54e6ff33}to{text-shadow:0 0 13px #54e6ff99}}\n@keyframes graphReveal{from{opacity:0;transform:scale(.975)}to{opacity:1;transform:scale(1)}}
+.explainer-graph{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.85fr);gap:14px;align-items:center;
+ background:#121d39;border:1px solid #455884;border-radius:16px;padding:14px;margin:12px 0 18px}
+.explainer-graph svg{width:100%;height:auto;display:block;background:#f8fbff;border-radius:12px;animation:graphReveal .75s ease both}
+.graph-note{background:#fff0b5;color:#25314a;border-radius:12px;padding:12px 14px;font-weight:700}
+.graph-note p{margin:4px 0}
+.trainer-head{background:#fff0b5;color:#1f2b44;border:1px solid #edcf73;border-radius:16px;padding:14px 16px;margin:12px 0}
+.trainer-head h3{color:#26334c;margin-bottom:4px}
+.trainer-status{font-weight:800;color:#28334a;margin-top:5px}
+.trainer-track{height:8px;background:#d6dced;border-radius:20px;overflow:hidden;margin-top:8px}
+.trainer-track span{height:100%;display:block;width:0;background:linear-gradient(90deg,#f3c64d,#e69a36);transition:width .25s}
+.trainer-reset{background:#fff3c7;color:#26334a;border:1px solid #e4bd4e}
+.answer{background:#fff0b5!important;color:#29354b!important;border-color:#ebc85c!important}
+@media(max-width:720px){.explainer-graph{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+.formula-highlight{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;min-height:44px;
+ padding:7px 13px!important;line-height:1.35;vertical-align:middle;overflow:visible}
+.formula-highlight .frac{font-size:1em;line-height:1.05;margin:0 .12em}
+.formula-highlight .frac>span:first-child{padding:0 .2em .12em}
+.formula-highlight .frac>span:last-child{padding:.12em .2em 0}
+.key-highlight{line-height:1.55}
+.graph-note{line-height:1.55}
+.graph-note b{white-space:normal}
+.important-box{line-height:1.65}
+
+
+.choices .option{display:flex;align-items:flex-start;gap:10px}
+.choices input[type=checkbox]{accent-color:#f0c34e;transform:scale(1.2);margin-top:4px;flex:0 0 auto}
+.select-line,.row-input{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0;color:#f5f7ff}
+select,.row-input input{white-space:nowrap;background:#0f1932;color:#fff;border:1px solid #6074a5;border-radius:10px;padding:10px 12px;font:inherit;min-width:150px}
+.row-input input{width:130px;min-width:120px}
+select:focus,.row-input input:focus{outline:2px solid #ffd66b;outline-offset:2px}
+.practice-task{animation:taskEnter .45s ease both}
+.practice-task:nth-of-type(even){animation-delay:.05s}
+@keyframes taskEnter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+
+.practice-task select{max-width:100%;white-space:nowrap;min-width:min(230px,100%)}
+.practice-task select:focus,.practice-task input:focus,.practice-task button:focus-visible{
+ outline:3px solid #ffd66b!important;outline-offset:2px
+}
+.practice-task .feedback{padding:6px 0}
+.practice-task .option:has(input:checked){border-color:#f1cc58;background:#334267}
+
+
+/* Mathematical intervals must never split across lines */
+.math-interval{
+  display:inline-block;
+  white-space:nowrap;
+  word-break:keep-all;
+  overflow-wrap:normal;
+  vertical-align:baseline;
+  unicode-bidi:isolate;
+}
+.math-token{
+  display:inline-block;
+  white-space:nowrap;
+  word-break:keep-all;
+}
+.choices .option{
+  min-width:0;
+  overflow-wrap:normal;
+  word-break:normal;
+}
+.choices .option input[type="checkbox"]{
+  flex:0 0 auto;
+}
+
+
+/* Checkbox answer: text flows as one paragraph next to the checkbox */
+.choices .option{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  min-width:0;
+  overflow-wrap:normal;
+  word-break:normal;
+}
+.choices .option .choice-text{
+  display:block;
+  flex:1 1 auto;
+  min-width:0;
+  line-height:1.45;
+  overflow-wrap:normal;
+  word-break:normal;
+}
+.choices .option input[type="checkbox"]{
+  flex:0 0 auto;
+  margin-top:4px;
+}
+/* Keep each interval intact inside the option text */
+.math-interval{
+  display:inline-block;
+  white-space:nowrap;
+  word-break:keep-all;
+  overflow-wrap:normal;
+  vertical-align:baseline;
+  unicode-bidi:isolate;
+}
+/* A yellow mathematical pill must contain the full stacked fraction */
+.formula-highlight{
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:flex-start;
+  gap:5px;
+  white-space:nowrap;
+  min-height:58px;
+  max-width:100%;
+  padding:9px 13px!important;
+  line-height:1.2!important;
+  vertical-align:middle;
+  overflow:visible;
+  box-sizing:border-box;
+}
+.formula-highlight .frac{
+  display:inline-flex;
+  flex:0 0 auto;
+  align-self:center;
+  vertical-align:middle;
+  font-size:.95em;
+  line-height:1.08;
+  margin:0 .12em;
+}
+.formula-highlight .frac>span:first-child{
+  padding:0 .22em .15em;
+  border-bottom:1.5px solid currentColor;
+}
+.formula-highlight .frac>span:last-child{
+  padding:.15em .22em 0;
+}
+
+</style>
+</head>
+<body>
+<header>
+ <div class="top">
+  <div><div class="brand">MATH QUEST 09 · МАТЕМАТИЧНА МІСІЯ</div><h1>Властивості функції</h1></div>
+  <div class="tag">9 клас · § 9 · 2 уроки</div>
+ </div>
+ <nav class="nav" aria-label="Розділи сайту">
+  <button class="active" data-page="home">Старт</button>
+  <button data-page="lesson1">Урок 1 · Досліджуємо графік</button>
+  <button data-page="lesson2">Урок 2 · Властивості функцій</button>
+  <button data-page="practice">Тренажер</button>
+  <button data-page="media">Відео та інтерактиви</button>
+ </nav>
+ <div class="progress"><span id="progressBar"></span></div>
+</header>
+<main>
+<section class="page active" id="home">
+ <div class="hero">
+  <div><div class="eyebrow">МІСІЯ 09 · ДОСЛІДЖУЄМО ЗАЛЕЖНОСТІ</div>
+   <h2>Відкрий усі властивості функції!</h2>
+   <p>Два уроки — одна велика математична місія. Навчись читати графіки, знаходити нулі, визначати знак функції, зростання і спадання, а потім досліджуй знайомі елементарні функції.</p>
+   <div class="btnline"><button class="btn primary" data-goto="lesson1">Почати урок 1 →</button><button class="btn" data-goto="lesson2">Перейти до уроку 2</button></div>
+  </div><div class="hero-art">📈 🔎</div>
+ </div>
+ <div class="grid">
+  <div class="tile"><span class="tag">УРОК 1</span><h3 style="margin-top:10px">Досліджуємо графік</h3><p>Нулі функції, перетини з осями, знакосталість, зростання та спадання.</p></div>
+  <div class="tile"><span class="tag">УРОК 2</span><h3 style="margin-top:10px">Порівнюємо функції</h3><p>Лінійна, обернена пропорційність, квадратична функція та квадратний корінь.</p></div>
+  <div class="tile"><span class="tag">ФІНІШ</span><h3 style="margin-top:10px">Перевіряємо себе</h3><p>Інтерактивні вправи, завдання з підручника та Kahoot.</p></div>
+ </div>
+ <div class="card">
+  <h2>Маршрут навчання</h2>
+  <ol>
+   <li>Пригадати, як читати графік функції.</li>
+   <li>Навчитися знаходити нулі та точки перетину з осями.</li>
+   <li>Визначати, де функція додатна або від’ємна.</li>
+   <li>Розпізнавати проміжки зростання й спадання.</li>
+   <li>Порівнювати властивості основних елементарних функцій.</li>
+  </ol>
+ </div>
+</section>
+
+<section class="page" id="lesson1">
+ <div class="hero">
+  <div><div class="eyebrow">УРОК 1 · ПУНКТИ 1–4 § 9</div><h2>Як «прочитати» графік функції?</h2>
+   <p>Графік — це не просто лінія. Він повідомляє, коли функція дорівнює нулю, де вона додатна чи від’ємна, а також як змінюється її значення.</p>
+  </div><div class="hero-art">🕵️‍♀️📊</div>
+ </div>
+
+ <div class="section-title"><span class="num">1</span><h2>Нулі функції</h2></div>
+ <div class="grid two">
+  <div class="tile"><h3>Означення</h3><p>Нулем функції називають <span class="key-highlight">значення аргументу x</span>, за якого значення функції дорівнює нулю.</p><div class="formula">f(x) = 0</div>
+   <div class="callout">ГОЛОВНЕ: щоб знайти нулі функції, потрібно розв’язати рівняння f(x) = 0.</div>
+  </div>
+  <div class="tile"><h3>Приклад</h3><p>Знайдемо нулі функції h(x) = x² − 2x − 8.</p><div class="formula">x² − 2x − 8 = 0</div><p>(x − 4)(x + 2) = 0</p><p><b>x₁ = 4; x₂ = −2.</b></p><p>Нулі функції: −2 і 4.</p></div>
+ </div>
+ 
+ <div class="explainer-graph">
+  <svg viewBox="0 0 420 230" role="img" aria-label="Нулі функції — точки перетину графіка з віссю Ox">
+   <rect width="420" height="230" rx="12" fill="#f8fbff"/>
+   <g stroke="#dce4ef" stroke-width="1"><path d="M35 25V205 M75 25V205 M115 25V205 M155 25V205 M195 25V205 M235 25V205 M275 25V205 M315 25V205 M355 25V205 M395 25V205"/><path d="M25 45H405 M25 85H405 M25 125H405 M25 165H405 M25 205H405"/></g>
+   <path d="M22 125H405 M210 210V18" stroke="#23334e" stroke-width="3"/>
+   <path d="M55 52 Q210 300 365 52" fill="none" stroke="#a58bff" stroke-width="6" stroke-linecap="round"/>
+   <circle cx="115" cy="125" r="10" fill="#ffd45a" stroke="#b77d00" stroke-width="3"/>
+   <circle cx="305" cy="125" r="10" fill="#ffd45a" stroke="#b77d00" stroke-width="3"/>
+   <g fill="#263650" font-size="14" font-family="Arial"><text x="105" y="150">−1</text><text x="299" y="150">1</text><text x="395" y="115">x</text><text x="220" y="24">y</text><text x="215" y="144">0</text></g>
+   <g stroke="#d69b18" stroke-dasharray="5 4" stroke-width="2"><path d="M115 125V190"/><path d="M305 125V190"/></g>
+  </svg>
+  <div class="graph-note"><b>Що виділено?</b><p>Жовті точки — місця, де графік перетинає вісь Ox.</p><p>Їхні абсциси <b>x = −1</b> і <b>x = 1</b> — нулі функції.</p><p>У цих точках <b>f(x) = 0</b>.</p></div>
+ </div>
+ <div class="section-title"><span class="num">2</span><h2>Перетин графіка з осями координат</h2></div>
+ <div class="grid two">
+  <div class="tile"><h3>З віссю Ox</h3><p>На осі Ox <span class="key-highlight">ордината дорівнює нулю</span>.</p><div class="formula">(x; 0), де f(x) = 0</div><p>Абсциси точок перетину з Ox — це нулі функції.</p></div>
+  <div class="tile"><h3>З віссю Oy</h3><p>На осі Oy <span class="key-highlight">абсциса дорівнює нулю</span>.</p><div class="formula">(0; f(0))</div><p>Щоб знайти точку перетину з Oy, обчисли f(0).</p></div>
+ </div>
+ <div class="example">
+  <h3>Приклад: h(x) = x² − 2x − 8</h3>
+  <p>З Ox: нулі −2 і 4 → точки (−2; 0) та (4; 0).</p>
+  <p>З Oy: h(0) = −8 → точка (0; −8).</p>
+  <button class="btn small" data-toggle="ex-axis">Показати коротку пам’ятку</button>
+  <div class="answer" id="ex-axis">Ox: прирівнюємо функцію до нуля. Oy: підставляємо x = 0.</div>
+ </div>
+
+ <div class="explainer-graph">
+  <svg viewBox="0 0 420 230" role="img" aria-label="Графік y=x+1 перетинає Ox у точці мінус один нуль, а Oy у точці нуль один">
+   <rect width="420" height="230" rx="12" fill="#f8fbff"/>
+   <g stroke="#dce4ef" stroke-width="1">
+    <path d="M35 25V205 M75 25V205 M115 25V205 M155 25V205 M195 25V205 M235 25V205 M275 25V205 M315 25V205 M355 25V205 M395 25V205"/>
+    <path d="M25 45H405 M25 85H405 M25 125H405 M25 165H405 M25 205H405"/>
+   </g>
+   <path d="M22 165H405 M155 210V18" stroke="#23334e" stroke-width="3"/>
+   <path d="M55 225L255 25" stroke="#8e66d7" stroke-width="6" stroke-linecap="round"/>
+   <path d="M115 165V205 M155 125H115" stroke="#d69b18" stroke-width="2.5" stroke-dasharray="5 4"/>
+   <path d="M155 125V165" stroke="#168ba0" stroke-width="2.5" stroke-dasharray="5 4"/>
+   <circle cx="115" cy="165" r="10" fill="#ffd45a" stroke="#b77d00" stroke-width="3"/>
+   <circle cx="155" cy="125" r="10" fill="#54d4e8" stroke="#087d98" stroke-width="3"/>
+   <g fill="#263650" font-size="14" font-family="Arial">
+    <text x="110" y="188">−1</text><text x="150" y="188">0</text>
+    <text x="170" y="121">(0; 1)</text><text x="395" y="155">x</text><text x="167" y="24">y</text>
+   </g>
+   <text x="54" y="151" fill="#b77d00" font-size="13" font-family="Arial">Ox</text>
+  </svg>
+  <div class="graph-note">
+   <b>Що виділено?</b>
+   <p>Жовта точка на осі Ox — <b>(−1; 0)</b>, де <b>f(−1) = 0</b>.</p>
+   <p>Блакитна точка на осі Oy — <b>(0; 1)</b>, де <b>f(0) = 1</b>.</p>
+   <p>Для перетину з Ox розв’язуємо <b>f(x) = 0</b>; для Oy підставляємо <b>x = 0</b>.</p>
+  </div>
+ </div>
+ <div class="section-title"><span class="num">3</span><h2>Проміжки знакосталості</h2></div>
+ <div class="grid two">
+  <div class="tile">
+   <h3 style="color:var(--green)">Функція додатна</h3>
+   <div class="formula">f(x) &gt; 0</div>
+   <p><span class="key-highlight">Графік розташований вище осі Ox.</span></p>
+  </div>
+  <div class="tile">
+   <h3 style="color:#ff8ba8">Функція від’ємна</h3>
+   <div class="formula">f(x) &lt; 0</div>
+   <p><span class="key-highlight">Графік розташований нижче осі Ox.</span></p>
+  </div>
+ </div>
+ <div class="callout">ГОЛОВНЕ: нулі функції розділяють область визначення на проміжки. На кожному проміжку перевіряємо, вище чи нижче осі Ox лежить графік.</div>
+ <div class="important-box">
+  <b>Як записувати проміжки знакосталості?</b><br>
+  f(x) &gt; 0 — об’єднання проміжків, де графік вище Ox;<br>
+  f(x) &lt; 0 — об’єднання проміжків, де графік нижче Ox.<br>
+  Нулі функції не включаємо до цих проміжків.
+ </div>
+
+ <div class="explainer-graph">
+  <svg viewBox="0 0 420 230" role="img" aria-label="Ламаний графік: зеленим позначені проміжки додатності, червоним — від’ємності">
+   <rect width="420" height="230" rx="12" fill="#f8fbff"/>
+   <g stroke="#dce4ef" stroke-width="1">
+    <path d="M35 25V205 M80 25V205 M125 25V205 M170 25V205 M215 25V205 M260 25V205 M305 25V205 M350 25V205 M395 25V205"/>
+    <path d="M25 40H405 M25 80H405 M25 120H405 M25 160H405 M25 200H405"/>
+   </g>
+   <path d="M22 120H405 M215 210V18" stroke="#23334e" stroke-width="3"/>
+   <!-- f(x)<0 on [-4,-3) -->
+   <path d="M35 160L80 120" fill="none" stroke="#dc5368" stroke-width="8" stroke-linecap="round"/>
+   <!-- f(x)>0 on (-3,-1) -->
+   <path d="M80 120L125 80L170 120" fill="none" stroke="#20a878" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+   <!-- f(x)<0 on (-1,1) -->
+   <path d="M170 120L215 160L260 120" fill="none" stroke="#dc5368" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+   <!-- f(x)>0 on (1,4] -->
+   <path d="M260 120L305 80L350 60L395 80" fill="none" stroke="#20a878" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+   <g fill="#ffd45a" stroke="#9d7114" stroke-width="2.5">
+    <circle cx="80" cy="120" r="7"/><circle cx="170" cy="120" r="7"/><circle cx="260" cy="120" r="7"/>
+   </g>
+   <g fill="#263650" font-size="13" font-family="Arial">
+    <text x="75" y="145">−3</text><text x="165" y="145">−1</text><text x="255" y="145">1</text>
+    <text x="397" y="109">x</text><text x="226" y="22">y</text><text x="223" y="139">0</text>
+   </g>
+   <g font-family="Arial" font-size="13" font-weight="bold">
+    <text x="42" y="183" fill="#c53f55">−</text>
+    <text x="118" y="67" fill="#168b60">+</text>
+    <text x="212" y="183" fill="#c53f55">−</text>
+    <text x="333" y="43" fill="#168b60">+</text>
+   </g>
+  </svg>
+  <div class="graph-note">
+   <b>Проміжки знакосталості на схемі</b>
+   <p><b style="color:#168b60">Додатна:</b> <b>(−3; −1) ∪ (1; 4]</b>.</p>
+   <p><b style="color:#c53f55">Від’ємна:</b> <b>[−4; −3) ∪ (−1; 1)</b>.</p>
+   <p>У точках <b>x = −3, −1, 1</b> функція дорівнює нулю, тому ці точки не входять до проміжків строгого знака.</p>
+  </div>
+ </div>
+ <div class="section-title"><span class="num">4</span><h2>Зростання та спадання функції</h2></div>
+ <div class="grid two">
+  <div class="tile"><h3 style="color:var(--green)">Зростаюча функція</h3><p>Якщо x₁ &lt; x₂, то f(x₁) &lt; f(x₂).</p><div class="formula">↗ зліва направо</div></div>
+  <div class="tile"><h3 style="color:#ff8ba8">Спадна функція</h3><p>Якщо x₁ &lt; x₂, то f(x₁) &gt; f(x₂).</p><div class="formula">↘ зліва направо</div></div>
+ </div>
+
+ <div class="explainer-graph">
+  <svg viewBox="0 0 420 230" role="img" aria-label="Проміжок зростання і спадання на графіку">
+   <rect width="420" height="230" rx="12" fill="#f8fbff"/>
+   <g stroke="#dce4ef" stroke-width="1"><path d="M35 25V205 M75 25V205 M115 25V205 M155 25V205 M195 25V205 M235 25V205 M275 25V205 M315 25V205 M355 25V205 M395 25V205"/><path d="M25 45H405 M25 85H405 M25 125H405 M25 165H405 M25 205H405"/></g>
+   <path d="M22 190H405 M55 210V18" stroke="#23334e" stroke-width="3"/>
+   <path d="M65 175 Q150 155 210 48 Q270 135 355 165" fill="none" stroke="#8e66d7" stroke-width="6" stroke-linecap="round"/>
+   <path d="M65 175 Q150 155 210 48" fill="none" stroke="#20a878" stroke-width="8" stroke-linecap="round"/>
+   <path d="M210 48 Q270 135 355 165" fill="none" stroke="#e35c78" stroke-width="8" stroke-linecap="round"/>
+   <circle cx="210" cy="48" r="8" fill="#ffd45a" stroke="#b77d00" stroke-width="3"/>
+   <path d="M92 145L125 137" stroke="#168b60" stroke-width="3"/><path d="M125 137l-12 -8v16z" fill="#168b60"/>
+   <path d="M288 126L324 151" stroke="#c94765" stroke-width="3"/><path d="M324 151l-15 -1 8 -11z" fill="#c94765"/>
+   <g fill="#263650" font-size="14" font-family="Arial"><text x="397" y="183">x</text><text x="67" y="166">a</text><text x="206" y="31">b</text><text x="348" y="185">c</text></g>
+  </svg>
+  <div class="graph-note"><b>Як визначити?</b><p><span style="color:#168b60">Зелена частина:</span> графік піднімається зліва направо — функція зростає.</p><p><span style="color:#b83e5a">Рожева частина:</span> графік опускається — функція спадає.</p><p>Точку переходу позначено жовтим.</p></div>
+ </div>
+ <div class="section-title"><span class="num">5</span><h2>Схематичний приклад: читаємо графік</h2></div>
+ <div class="grid two">
+  <div class="tile">
+   <p>На схемі задано графік функції на проміжку [−4; 4]. Ключові точки ламаної:</p>
+   <p>(−4; −2), (−2; 0), (0; 1), (2; 2), (3; 0), (4; −2).</p>
+   <div class="mini-graph">
+    <svg viewBox="0 0 520 320" role="img" aria-label="Графік функції з нулями мінус два і три">
+     <rect width="520" height="320" fill="#f8fbff"/>
+     <g stroke="#d5deeb" stroke-width="1">
+      <path d="M40 20V290 M85 20V290 M130 20V290 M175 20V290 M220 20V290 M265 20V290 M310 20V290 M355 20V290 M400 20V290 M445 20V290 M490 20V290"/>
+      <path d="M25 35H495 M25 80H495 M25 125H495 M25 170H495 M25 215H495 M25 260H495 M25 290H495"/>
+     </g>
+     <g stroke="#26364f" stroke-width="2.5"><path d="M25 170H500 M265 300V15"/></g>
+     <g fill="#26364f" font-size="13" font-family="Arial"><text x="499" y="160">x</text><text x="275" y="20">y</text><text x="270" y="187">0</text></g>
+     <polyline points="85,260 175,170 265,125 355,80 400,170 445,260" fill="none" stroke="#7d55d8" stroke-width="5" stroke-linejoin="round"/>
+     <g fill="#7d55d8"><circle cx="85" cy="260" r="6"/><circle cx="175" cy="170" r="6"/><circle cx="265" cy="125" r="6"/><circle cx="355" cy="80" r="6"/><circle cx="400" cy="170" r="6"/><circle cx="445" cy="260" r="6"/></g>
+     <g fill="#26364f" font-size="13" font-family="Arial"><text x="78" y="190">−4</text><text x="165" y="190">−2</text><text x="350" y="190">2</text><text x="395" y="190">3</text><text x="440" y="190">4</text></g>
+    </svg>
+   </div>
+  </div>
+  <div class="tile"><h3>Властивості за графіком</h3>
+   <ul>
+    <li>D(f) = [−4; 4]</li>
+    <li>E(f) = [−2; 2]</li>
+    <li>Нулі: x = −2; x = 3</li>
+    <li>Перетин з Oy: (0; 1)</li>
+    <li>f(x) &gt; 0 на (−2; 3)</li>
+    <li>f(x) &lt; 0 на [−4; −2) ∪ (3; 4]</li>
+    <li>Зростає на [−4; 2]</li>
+    <li>Спадає на [2; 4]</li>
+   </ul>
+  </div>
+ </div>
+
+ <div class="section-title"><span class="num">6</span><h2>Перевір себе · мінітренажер уроку 1</h2></div>
+ <div class="trainer-head" id="lesson1-trainer">
+  <h3>ФІНАЛЬНИЙ ТРЕНАЖЕР · УРОК 1</h3><div>Перевір, чи вмієш знаходити нулі, перетини з осями, проміжки знакосталості, зростання та спадання.</div>
+  <div class="trainer-status" id="lesson1-status">Відповідей: 0 із 4 · Правильних: 0</div>
+  <div class="trainer-track"><span id="lesson1-track"></span></div>
+ </div>
+ <div class="quiz" data-quiz data-trainer="lesson1">
+  <h3>1. Які значення аргументу є нулями функції?</h3>
+  <div class="options">
+   <button class="option" data-correct="false">Значення y, за яких x = 0</button>
+   <button class="option" data-correct="true">Значення x, за яких f(x) = 0</button>
+   <button class="option" data-correct="false">Усі значення області визначення</button>
+  </div><div class="feedback"></div>
+ </div>
+ <div class="quiz" data-quiz data-trainer="lesson1">
+  <h3>2. Якщо f(0) = −3, то точка перетину з Oy:</h3>
+  <div class="options">
+   <button class="option" data-correct="true">(0; −3)</button>
+   <button class="option" data-correct="false">(−3; 0)</button>
+   <button class="option" data-correct="false">(0; 3)</button>
+  </div><div class="feedback"></div>
+ </div>
+ <div class="quiz" data-quiz data-trainer="lesson1">
+  <h3>3. Якщо графік розташований нижче осі Ox, то…</h3>
+  <div class="options">
+   <button class="option" data-correct="false">f(x) &gt; 0</button>
+   <button class="option" data-correct="true">f(x) &lt; 0</button>
+   <button class="option" data-correct="false">f(x) = 0</button>
+  </div><div class="feedback"></div>
+ </div>
+ <div class="quiz" data-quiz data-trainer="lesson1">
+  <h3>4. Для зростаючої функції, якщо x₁ &lt; x₂, то…</h3>
+  <div class="options">
+   <button class="option" data-correct="false">f(x₁) &gt; f(x₂)</button>
+   <button class="option" data-correct="true">f(x₁) &lt; f(x₂)</button>
+   <button class="option" data-correct="false">f(x₁) = f(x₂)</button>
+  </div><div class="feedback"></div>
+ </div>
+ <div class="btnline"><button class="btn primary" data-goto="lesson2">До уроку 2 →</button></div>
+
+ <div class="btnline"><button class="btn trainer-reset" type="button" data-reset-trainer="lesson1">Скинути тренажер ↻</button></div>
+</section>
+
+<section class="page" id="lesson2">
+ <div class="hero">
+  <div><div class="eyebrow">УРОК 2 · ПУНКТ 5 § 9</div><h2>Властивості елементарних функцій</h2>
+   <p>Дослідимо, як вигляд формули пов’язаний з областю визначення, нулями, знаком, зростанням і спаданням функції.</p>
+  </div><div class="hero-art">🧭📐</div>
+ </div>
+ <div class="section-title"><span class="num">1</span><h2>Лінійна функція y = kx + l, k ≠ 0</h2></div>
+ <div class="grid two">
+  <div class="tile"><h3>Якщо k &gt; 0</h3><div class="formula">↗ функція зростає на ℝ</div><p><span class="key-highlight">D(f) = ℝ; E(f) = ℝ.</span></p><p><span class="key-highlight formula-highlight">Нуль: x = −<span class="frac" role="math"><span>l</span><span>k</span></span></span></p><p><span class="key-highlight formula-highlight">f(x) &gt; 0, коли x &gt; −<span class="frac" role="math"><span>l</span><span>k</span></span>.</span></p><p><span class="key-highlight formula-highlight">f(x) &lt; 0, коли x &lt; −<span class="frac" role="math"><span>l</span><span>k</span></span>.</span></p></div>
+  <div class="tile"><h3>Якщо k &lt; 0</h3><div class="formula">↘ функція спадає на ℝ</div><p><span class="key-highlight">D(f) = ℝ; E(f) = ℝ.</span></p><p><span class="key-highlight formula-highlight">Нуль: x = −<span class="frac" role="math"><span>l</span><span>k</span></span></span></p><p><span class="key-highlight formula-highlight">f(x) &gt; 0, коли x &lt; −<span class="frac" role="math"><span>l</span><span>k</span></span>.</span></p><p><span class="key-highlight formula-highlight">f(x) &lt; 0, коли x &gt; −<span class="frac" role="math"><span>l</span><span>k</span></span>.</span></p></div>
+ </div>
+ <div class="section-title"><span class="num">2</span><h2>Обернена пропорційність y = <span class="frac" role="math"><span>k</span><span>x</span></span>, k ≠ 0</h2></div>
+ <div class="grid two">
+  <div class="tile"><h3>Якщо k &gt; 0</h3><p><span class="key-highlight">D(f) = ℝ \ {0}; E(f) = ℝ \ {0}.</span></p><p>Нулів немає.</p><p>f(x) &gt; 0 при x &gt; 0; f(x) &lt; 0 при x &lt; 0.</p><p>Спадає на (−∞; 0) і (0; +∞).</p></div>
+  <div class="tile"><h3>Якщо k &lt; 0</h3><p><span class="key-highlight">D(f) = ℝ \ {0}; E(f) = ℝ \ {0}.</span></p><p>Нулів немає.</p><p>f(x) &gt; 0 при x &lt; 0; f(x) &lt; 0 при x &gt; 0.</p><p>Зростає на (−∞; 0) і (0; +∞).</p></div>
+ </div>
+ <div class="section-title"><span class="num">3</span><h2>Квадратична функція y = x²</h2></div>
+ <div class="grid two">
+  <div class="tile"><p><span class="key-highlight">D(f) = ℝ</span></p><p><span class="key-highlight">E(f) = [0; +∞)</span></p><p>Єдиний нуль: x = 0.</p><p>f(x) &gt; 0 при x ≠ 0; від’ємних значень не має.</p><p>Спадає на (−∞; 0] і зростає на [0; +∞).</p><p>Найменше значення — 0. Найбільшого немає.</p></div>
+  <div class="tile">
+   <h3>Графік — парабола</h3>
+   <div class="mini-graph"><svg viewBox="0 0 360 210"><rect width="360" height="210" fill="#f8fbff"/><g stroke="#dce4ef"><path d="M30 20V190M80 20V190M130 20V190M180 20V190M230 20V190M280 20V190M330 20V190M20 40H340M20 80H340M20 120H340M20 160H340"/></g><path d="M20 120H342M180 195V15" stroke="#273752" stroke-width="2"/><path d="M45 30 Q180 245 315 30" fill="none" stroke="#8d62d6" stroke-width="5"/><circle cx="180" cy="120" r="5" fill="#e34e9b"/></svg></div>
+  </div>
+ </div>
+ <div class="section-title"><span class="num">4</span><h2>Функція y = √x</h2></div>
+ <div class="grid two">
+  <div class="tile"><p><span class="key-highlight">D(f) = [0; +∞)</span></p><p><span class="key-highlight">E(f) = [0; +∞)</span></p><p>Єдиний нуль: x = 0.</p><p>f(x) &gt; 0 при x &gt; 0; від’ємних значень не має.</p><p>Зростає на [0; +∞).</p><p>Найменше значення — 0. Найбільшого немає.</p></div>
+  <div class="tile"><h3>Графік починається в точці (0; 0)</h3>
+   <div class="mini-graph"><svg viewBox="0 0 360 210"><rect width="360" height="210" fill="#f8fbff"/><g stroke="#dce4ef"><path d="M30 20V190M80 20V190M130 20V190M180 20V190M230 20V190M280 20V190M330 20V190M20 40H340M20 80H340M20 120H340M20 160H340"/></g><path d="M20 160H342M30 195V15" stroke="#273752" stroke-width="2"/><path d="M30 160 Q75 70 140 48 T320 20" fill="none" stroke="#1b9f9d" stroke-width="5"/><circle cx="30" cy="160" r="5" fill="#e34e9b"/></svg></div>
+  </div>
+ </div>
+
+ <div class="section-title"><span class="num">5</span><h2>Порівняльна таблиця</h2></div>
+ <div class="tile" style="overflow-x:auto">
+  <table>
+   <thead><tr><th class="key-highlight">Властивість</th><th>y = kx + l</th><th>y = <span class="frac" role="math"><span>k</span><span>x</span></span></th><th>y = x²</th><th>y = √x</th></tr></thead>
+   <tbody>
+    <tr><td>Область визначення</td><td>ℝ</td><td>ℝ \ {0}</td><td>ℝ</td><td>[0; +∞)</td></tr>
+    <tr><td>Область значень</td><td>ℝ</td><td>ℝ \ {0}</td><td>[0; +∞)</td><td>[0; +∞)</td></tr>
+    <tr><td>Нулі</td><td>−<span class="frac" role="math"><span>l</span><span>k</span></span></td><td>Немає</td><td>0</td><td>0</td></tr>
+    <tr><td>Монотонність</td><td>Зростає при k&gt;0; спадає при k&lt;0</td><td>Спадає при k&gt;0; зростає при k&lt;0 на кожному проміжку області визначення</td><td>Спадає до 0, далі зростає</td><td>Зростає</td></tr>
+    <tr><td>Екстремуми</td><td>Немає</td><td>Немає</td><td>Мінімум 0</td><td>Мінімум 0</td></tr>
+   </tbody>
+  </table>
+ </div>
+ <div class="callout"><b>ПАМ’ЯТАЙ:</b> для функції y = <span class="frac" role="math"><span>k</span><span>x</span></span> область визначення й область значень не містять нуля. Для y = x² та y = √x значення функції не бувають від’ємними.</div>
+ <div class="section-title"><span class="num">6</span><h2>Перевір себе · мінітренажер уроку 2</h2></div>
+ <div class="trainer-head" id="lesson2-trainer">
+  <h3>ФІНАЛЬНИЙ ТРЕНАЖЕР · УРОК 2</h3><div>Перевір властивості лінійної функції, оберненої пропорційності, параболи та кореневої функції.</div>
+  <div class="trainer-status" id="lesson2-status">Відповідей: 0 із 4 · Правильних: 0</div>
+  <div class="trainer-track"><span id="lesson2-track"></span></div>
+ </div>
+ <div class="quiz" data-quiz data-trainer="lesson2">
+  <h3>1. Коли лінійна функція y = kx + l зростає?</h3><div class="options">
+   <button class="option" data-correct="true">Коли k &gt; 0</button><button class="option" data-correct="false">Коли k &lt; 0</button><button class="option" data-correct="false">За будь-якого k</button>
+  </div><div class="feedback"></div>
+ </div>
+ <div class="quiz" data-quiz data-trainer="lesson2">
+  <h3>2. Яка область визначення функції y = <span class="frac" role="math"><span>6</span><span>x</span></span>?</h3><div class="options">
+   <button class="option" data-correct="false">ℝ</button><button class="option" data-correct="true">ℝ \ {0}</button><button class="option" data-correct="false">[0; +∞)</button>
+  </div><div class="feedback"></div>
+ </div>
+ <div class="quiz" data-quiz data-trainer="lesson2">
+  <h3>3. Яке найменше значення функції y = x²?</h3><div class="options">
+   <button class="option" data-correct="true">0</button><button class="option" data-correct="false">−1</button><button class="option" data-correct="false">Найменшого значення немає</button>
+  </div><div class="feedback"></div>
+ </div>
+ <div class="quiz" data-quiz data-trainer="lesson2">
+  <h3>4. На якому проміжку зростає y = √x?</h3><div class="options">
+   <button class="option" data-correct="false">(−∞; 0]</button><button class="option" data-correct="true">[0; +∞)</button><button class="option" data-correct="false">На всій ℝ</button>
+  </div><div class="feedback"></div>
+ </div>
+
+ <div class="btnline"><button class="btn trainer-reset" type="button" data-reset-trainer="lesson2">Скинути тренажер ↻</button></div>
+</section>
+
+<section class="page" id="practice">
+ <div class="hero">
+  <div><div class="eyebrow">ТРЕНАЖЕР · РІЗНІ ФОРМАТИ ЗАВДАНЬ</div>
+   <h2>Перевір себе: властивості функції</h2>
+   <p>Виконай завдання різних типів. Уважно читай умову: десь одна правильна відповідь, десь потрібно вибрати кілька, а в інших завданнях — скористатися списком або ввести число.</p>
+  </div><div class="hero-art">🧠🎯</div>
+ </div>
+ <div class="trainer-head" id="practice-head">
+  <h3>ПІДСУМКОВИЙ ТРЕНАЖЕР</h3>
+  <div>7 завдань · різні типи відповідей · автоматична перевірка</div>
+  <div class="trainer-status" id="practice-status">Перевірено: 0 із 7 · Правильно: 0</div>
+  <div class="trainer-track"><span id="practice-track"></span></div>
+ </div>
+
+ <div class="quiz practice-task" data-practice="single">
+  <span class="tag">1 · ОДНА ПРАВИЛЬНА ВІДПОВІДЬ</span>
+  <h3>Знайди нулі функції <b>f(x) = x² − 4</b>.</h3>
+  <div class="options">
+   <button class="option" data-correct="false">x = 0 і x = 4</button>
+   <button class="option" data-correct="true">x = −2 і x = 2</button>
+   <button class="option" data-correct="false">x = −4 і x = 4</button>
+   <button class="option" data-correct="false">Нулів немає</button>
+  </div><div class="feedback"></div>
+ </div>
+
+ <div class="quiz practice-task" data-practice="multi" id="multi1">
+  <span class="tag">2 · КІЛЬКА ПРАВИЛЬНИХ ВІДПОВІДЕЙ</span>
+  <h3>Познач усі правильні твердження про функцію <b>y = x²</b>.</h3>
+  <div class="options choices">
+   <label class="option"><input type="checkbox" value="a" data-correct="true"><span class="choice-text">Область визначення — усі дійсні числа.</span></label>
+   <label class="option"><input type="checkbox" value="b" data-correct="true"><span class="choice-text">Область значень — <b class="math-interval">[0; +∞)</b>.</span></label>
+   <label class="option"><input type="checkbox" value="c" data-correct="false"><span class="choice-text">Функція набуває від’ємних значень.</span></label>
+   <label class="option"><input type="checkbox" value="d" data-correct="true"><span class="choice-text">Єдиний нуль функції — <b class="math-token">x = 0</b>.</span></label>
+  </div>
+  <button class="btn small" type="button" data-check-multi="multi1">Перевірити вибір</button>
+  <div class="feedback"></div>
+ </div>
+
+ <div class="quiz practice-task" data-practice="select" id="select1">
+  <span class="tag">3 · ОБЕРИ ЗІ СПИСКУ</span>
+  <h3>Для функції <b>y = −3x + 6</b> заповни пропуски.</h3>
+  <div class="select-line">Функція
+   <select data-answer="спадає"><option value="">— обери —</option><option>зростає</option><option>спадає</option></select>
+   на всій області визначення, а її нуль:
+   <select data-answer="2"><option value="">— обери —</option><option>−2</option><option>0</option><option>2</option><option>6</option></select>.
+  </div>
+  <button class="btn small" type="button" data-check-select="select1">Перевірити</button>
+  <div class="feedback"></div>
+ </div>
+
+ <div class="quiz practice-task" data-practice="multi" id="multi2">
+  <span class="tag">4 · КІЛЬКА ПРАВИЛЬНИХ ВІДПОВІДЕЙ</span>
+  <h3>Що правильно для функції <b>y = <span class="frac"><span>4</span><span>x</span></span></b>?</h3>
+  <div class="options choices">
+   <label class="option"><input type="checkbox" value="a" data-correct="true"><span class="choice-text"><b>D(f) = ℝ \ {0}</b>.</span></label>
+   <label class="option"><input type="checkbox" value="b" data-correct="true"><span class="choice-text"><b>E(f) = ℝ \ {0}</b>.</span></label>
+   <label class="option"><input type="checkbox" value="c" data-correct="false"><span class="choice-text">Функція має нуль <b>x = 0</b>.</span></label>
+   <label class="option"><input type="checkbox" value="d" data-correct="true"><span class="choice-text">Функція спадає на кожному з проміжків <span class="math-interval">(−∞; 0)</span> і <span class="math-interval">(0; +∞)</span>.</span></label>
+  </div>
+  <button class="btn small" type="button" data-check-multi="multi2">Перевірити вибір</button>
+  <div class="feedback"></div>
+ </div>
+
+ <div class="quiz practice-task" data-practice="input" id="input1">
+  <span class="tag">5 · ВВЕДИ ВІДПОВІДЬ</span>
+  <h3>Знайди <b>f(0)</b>, якщо <b>f(x) = x² − 3x + 1</b>.</h3>
+  <div class="row-input"><label for="answer-number">f(0) = </label><input id="answer-number" type="text" inputmode="decimal" data-answer="1" placeholder="Введи число"></div>
+  <button class="btn small" type="button" data-check-input="input1">Перевірити</button>
+  <div class="feedback"></div>
+ </div>
+
+ <div class="quiz practice-task" data-practice="select" id="select2">
+  <span class="tag">6 · ОБЕРИ ПРОМІЖКИ ЗІ СПИСКУ</span>
+  <h3>Функція <b>y = (x − 1)(x + 2)</b>. Визнач проміжки знакосталості.</h3>
+  <div class="select-line">Додатна:
+   <select data-answer="(−∞;−2)∪(1;+∞)"><option value="">— обери —</option><option value="(−2;1)">(−2; 1)</option><option value="(−∞;−2)∪(1;+∞)">(−∞; −2) ∪ (1; +∞)</option><option>(−∞; 1)</option></select>
+  </div>
+  <div class="select-line">Від’ємна:
+   <select data-answer="(−2;1)"><option value="">— обери —</option><option value="(−2;1)">(−2; 1)</option><option value="(−∞;−2)∪(1;+∞)">(−∞; −2) ∪ (1; +∞)</option><option value="(1;+∞)">(1; +∞)</option></select>
+  </div>
+  <button class="btn small" type="button" data-check-select="select2">Перевірити</button>
+  <div class="feedback"></div>
+ </div>
+
+ <div class="quiz practice-task" data-practice="select" id="select3">
+  <span class="tag">7 · УСТАНОВИ ВІДПОВІДНІСТЬ ЗА СПИСКАМИ</span>
+  <h3>Обери властивість кожної функції.</h3>
+  <div class="select-line"><b>y = 2x + 1</b>:
+   <select data-answer="зростає на R"><option value="">— обери —</option><option value="зростає на R">зростає на ℝ</option><option value="спадає на R">спадає на ℝ</option><option>спадає до 0, потім зростає</option></select>
+  </div>
+  <div class="select-line"><b>y = −2x + 1</b>:
+   <select data-answer="спадає на R"><option value="">— обери —</option><option value="зростає на R">зростає на ℝ</option><option value="спадає на R">спадає на ℝ</option><option>спадає до 0, потім зростає</option></select>
+  </div>
+  <div class="select-line"><b>y = x²</b>:
+   <select data-answer="спадає на (−∞;0], зростає на [0;+∞)"><option value="">— обери —</option><option value="зростає на R">зростає на ℝ</option><option value="спадає на R">спадає на ℝ</option><option value="спадає на (−∞;0], зростає на [0;+∞)">спадає на (−∞; 0], зростає на [0; +∞)</option></select>
+  </div>
+  <button class="btn small" type="button" data-check-select="select3">Перевірити</button>
+  <div class="feedback"></div>
+ </div>
+
+ <div class="trainer-head">
+  <h3>ТВОЇ РЕЗУЛЬТАТИ</h3>
+  <p>Кожне завдання оцінюється в 1 бал. Максимум — 7 балів.</p>
+  <div class="trainer-status" id="practice-result">Ще не всі завдання перевірені.</div>
+  <div class="btnline"><button class="btn trainer-reset" type="button" id="reset-practice">Почати спочатку ↻</button></div>
+ </div>
+</section>
+
+<section class="page" id="media">
+ <div class="hero"><div><div class="eyebrow">МЕДІАТЕКА · ПОВТОРЕННЯ Й ЗАКРІПЛЕННЯ</div><h2>Дивись, тренуйся, перевіряй себе</h2><p>Використовуй відео для пояснення та повторення. Після перегляду виконай вправу або пройди фінальну вікторину.</p></div><div class="hero-art">🎬🎮</div></div>
+ <div class="section-title"><span class="num">1</span><h2>Навчальні відео</h2></div>
+ <div class="video-grid">
+  <div class="video"><h3>Відео 1</h3><iframe src="https://www.youtube-nocookie.com/embed/WhdoHOlmO48" title="Навчальне відео 1" loading="lazy" allowfullscreen></iframe><p><a href="https://www.youtube.com/watch?v=WhdoHOlmO48" target="_blank" rel="noopener">Відкрити на YouTube ↗</a></p></div>
+  <div class="video"><h3>Відео 2</h3><iframe src="https://www.youtube-nocookie.com/embed/f5uRG5XYHy4" title="Навчальне відео 2" loading="lazy" allowfullscreen></iframe><p><a href="https://www.youtube.com/watch?v=f5uRG5XYHy4" target="_blank" rel="noopener">Відкрити на YouTube ↗</a></p></div>
+  <div class="video"><h3>Відео 3</h3><iframe src="https://www.youtube-nocookie.com/embed/hjQtJ0JmQMw" title="Навчальне відео 3" loading="lazy" allowfullscreen></iframe><p><a href="https://www.youtube.com/watch?v=hjQtJ0JmQMw" target="_blank" rel="noopener">Відкрити на YouTube ↗</a></p></div>
+ </div>
+ <div class="section-title"><span class="num">2</span><h2>Wordwall · інтерактивна вправа</h2></div>
+ <div class="resource">
+  <h3>Перевір властивості функції</h3>
+  <p>Виконай вправу, а потім повернись на сайт і продовжуй тренування.</p>
+  <div class="btnline"><a class="btn primary" href="https://wordwall.net/uk/resource/124178919?wwmethod=link" target="_blank" rel="noopener">Відкрити Wordwall ↗</a></div>
+  <p class="muted">Вправа відкривається окремо, щоб не залежати від обмежень вбудовування Wordwall.</p>
+ </div>
+ <div class="section-title"><span class="num">3</span><h2>Kahoot · фінальна перевірка</h2></div>
+ <div class="resource">
+  <h3>Підсумкова вікторина</h3>
+  <p>Відкрий вікторину Kahoot. Учитель запускає гру та повідомляє учням PIN-код для приєднання.</p>
+  <div class="btnline"><a class="btn primary" href="https://create.kahoot.it/details/bf5743c5-8dca-42e8-b491-6d254f5cafdd" target="_blank" rel="noopener">Відкрити Kahoot ↗</a></div>
+  <p class="muted">Надане посилання веде на сторінку вікторини в Kahoot; для гри учням потрібен PIN після запуску.</p>
+ </div>
+ <div class="section-title"><span class="num">4</span><h2>Підсумкова самоперевірка</h2></div>
+ <div class="tile">
+  <h3>Я можу…</h3>
+  <ul class="checklist">
+   <li><label><input type="checkbox"> знаходити нулі функції;</label></li>
+   <li><label><input type="checkbox"> знаходити точки перетину графіка з осями координат;</label></li>
+   <li><label><input type="checkbox"> визначати проміжки знакосталості;</label></li>
+   <li><label><input type="checkbox"> знаходити проміжки зростання та спадання;</label></li>
+   <li><label><input type="checkbox"> називати властивості основних елементарних функцій.</label></li>
+  </ul>
+ </div>
+</section>
+</main>
+<footer>MATH QUEST 09 · Властивості функції · Навчайся, досліджуй, перемагай!</footer>
+<script>
+(function(){
+ "use strict";
+ const pages=[...document.querySelectorAll(".page")];
+ const navButtons=[...document.querySelectorAll("[data-page]")];
+ const progress={home:0,lesson1:25,lesson2:55,practice:80,media:100};
+ function openPage(id){
+  pages.forEach(p=>p.classList.toggle("active",p.id===id));
+  navButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+  const bar=document.getElementById("progressBar");
+  bar.style.width=(progress[id]||0)+"%";
+  window.scrollTo({top:0,behavior:"smooth"});
+ }
+ navButtons.forEach(b=>b.addEventListener("click",()=>openPage(b.dataset.page)));
+ document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>openPage(b.dataset.goto)));
+ document.querySelectorAll("[data-toggle]").forEach(b=>b.addEventListener("click",()=>{
+  const target=document.getElementById(b.dataset.toggle);
+  if(!target)return;
+  target.classList.toggle("show");
+  b.textContent=target.classList.contains("show")?"Приховати":"Показати відповіді";
+ }));
+ function updateTrainer(id){
+  const boxes=[...document.querySelectorAll('[data-trainer="'+id+'"]')];
+  const answered=boxes.filter(b=>b.dataset.done==="1").length;
+  const correct=boxes.filter(b=>b.dataset.correctResult==="1").length;
+  const status=document.getElementById(id+"-status"),track=document.getElementById(id+"-track");
+  if(status)status.textContent="Відповідей: "+answered+" із "+boxes.length+" · Правильних: "+correct;
+  if(track)track.style.width=(boxes.length?answered/boxes.length*100:0)+"%";
+  if(answered===boxes.length&&boxes.length&&status)status.textContent="Тренажер завершено! Правильних відповідей: "+correct+" із "+boxes.length+".";
+ }
+ document.querySelectorAll("[data-quiz]").forEach(box=>{
+  const opts=[...box.querySelectorAll(".option")],feedback=box.querySelector(".feedback");
+  opts.forEach(btn=>btn.addEventListener("click",()=>{
+   if(box.dataset.done==="1"||btn.tagName!=="BUTTON")return;
+   box.dataset.done="1";
+   const ok=btn.dataset.correct==="true";box.dataset.correctResult=ok?"1":"0";
+   btn.classList.add(ok?"correct":"wrong");opts.forEach(o=>o.disabled=true);
+   if(feedback)feedback.textContent=ok?"Правильно! Чудова робота.":"Цього разу не вийшло. Переглянь правило й спробуй ще раз після скидання тренажера.";
+   if(box.dataset.trainer)updateTrainer(box.dataset.trainer);
+  }));
+ });
+
+ // Multi-select practice tasks
+ function completePracticeTask(box,ok,message){
+  if(!box||box.dataset.done==="1")return;
+  box.dataset.done="1";box.dataset.correctResult=ok?"1":"0";
+  box.querySelectorAll("input,select,button[data-check-multi],button[data-check-select],button[data-check-input]").forEach(el=>el.disabled=true);
+  const feedback=box.querySelector(".feedback");
+  if(feedback)feedback.textContent=(ok?"Правильно! ":"Є помилка. ")+message;
+  updatePracticeSummary();
+ }
+ document.querySelectorAll("[data-check-multi]").forEach(btn=>btn.addEventListener("click",()=>{
+  const box=document.getElementById(btn.dataset.checkMulti);
+  if(!box||box.dataset.done==="1")return;
+  const inputs=[...box.querySelectorAll('input[type="checkbox"]')];
+  const ok=inputs.every(i=>i.checked===(i.dataset.correct==="true"));
+  completePracticeTask(box,ok,ok?"Усі потрібні варіанти вибрано.":"Потрібно вибрати всі правильні твердження й не позначати хибні.");
+ }));
+ document.querySelectorAll("[data-check-select]").forEach(btn=>btn.addEventListener("click",()=>{
+  const box=document.getElementById(btn.dataset.checkSelect);
+  if(!box||box.dataset.done==="1")return;
+  const selects=[...box.querySelectorAll("select")];
+  const ok=selects.length>0&&selects.every(s=>s.value===s.dataset.answer);
+  completePracticeTask(box,ok,ok?"Усі значення зі списків вибрано правильно.":"Перевір відповідність кожного вибраного значення.");
+ }));
+ document.querySelectorAll("[data-check-input]").forEach(btn=>btn.addEventListener("click",()=>{
+  const box=document.getElementById(btn.dataset.checkInput);
+  if(!box||box.dataset.done==="1")return;
+  const input=box.querySelector("input[data-answer]");
+  const val=(input?.value||"").trim().replace(",",".");
+  const ok=val!==""&&Number(val)===Number(input.dataset.answer);
+  completePracticeTask(box,ok,ok?"Числову відповідь знайдено правильно.":"Підстав x = 0 у формулу та обчисли значення.");
+ }));
+ // Single choice task outside the lesson mini-trainers is checked using the same option buttons.
+ document.querySelectorAll('#practice .practice-task[data-practice="single"] .option').forEach(btn=>btn.addEventListener("click",()=>{
+  const box=btn.closest(".practice-task");if(box.dataset.done==="1")return;
+  const ok=btn.dataset.correct==="true";btn.classList.add(ok?"correct":"wrong");
+  box.querySelectorAll(".option").forEach(o=>o.disabled=true);
+  completePracticeTask(box,ok,ok?"Правильні нулі знайдено.":"Розв’яжи рівняння x² − 4 = 0.");
+ }));
+ function updatePracticeSummary(){
+  const boxes=[...document.querySelectorAll("#practice .practice-task")];
+  const checked=boxes.filter(b=>b.dataset.done==="1").length;
+  const score=boxes.filter(b=>b.dataset.correctResult==="1").length;
+  const status=document.getElementById("practice-status");
+  const track=document.getElementById("practice-track");
+  const result=document.getElementById("practice-result");
+  if(status)status.textContent="Перевірено: "+checked+" із "+boxes.length+" · Правильно: "+score;
+  if(track)track.style.width=(checked/boxes.length*100)+"%";
+  if(result)result.textContent=checked===boxes.length?"Тренажер завершено! Твій результат: "+score+" із "+boxes.length+" балів.":"Виконано "+checked+" із "+boxes.length+" завдань.";
+ }
+ document.getElementById("reset-practice")?.addEventListener("click",()=>{
+  document.querySelectorAll("#practice .practice-task").forEach(box=>{
+   delete box.dataset.done;delete box.dataset.correctResult;
+   box.querySelectorAll("button.option").forEach(o=>{o.disabled=false;o.classList.remove("correct","wrong")});
+   box.querySelectorAll("input,select").forEach(el=>{el.disabled=false;if(el.type==="checkbox")el.checked=false;else el.value=""});
+   const fb=box.querySelector(".feedback");if(fb)fb.textContent="";
+  });
+  updatePracticeSummary();
+ });
+})();
+</script>
+</body>
+</html>
